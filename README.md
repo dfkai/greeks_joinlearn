@@ -91,10 +91,17 @@ DERIBIT_CLIENT_SECRET_TEST=paste_your_client_secret_here
 
 ### ❓ What about `.streamlit/secrets.toml.example`?
 
-**You can ignore this file!** It's only a reference for Streamlit Cloud deployment.
+**You can ignore this file for local use!**
 
-- **For local use**: Only edit `.env` file (explained above)
-- **For Streamlit Cloud**: Admins use this as a template for cloud secrets
+**Purpose**: It's a reference template for Streamlit Cloud deployment (similar to `.env` but for cloud).
+
+- **本地部署**：只需要修改 `.env` 文件（上面已说明）
+- **Streamlit Cloud 部署**：参考 `secrets.toml.example` 的内容，在 Streamlit Cloud 网页的 Secrets 管理界面手动填写
+
+**简单理解**：
+- `.env` = 本地运行的配置文件
+- Streamlit Cloud Secrets = 云端运行的配置文件
+- `secrets.toml.example` = 教你云端应该填什么的参考文档
 
 ---
 
@@ -106,12 +113,22 @@ DERIBIT_CLIENT_SECRET_TEST=paste_your_client_secret_here
 
 **For demonstration purposes only** - shows pre-loaded sample data without real-time collection.
 
-1. Fork this repo to your GitHub
-2. Upload the `options_data.duckdb` file (sample data snapshot)
-3. Go to [Streamlit Cloud](https://share.streamlit.io)
-4. Create new app → Select your forked repo
-5. **Do NOT add API credentials** (keeps demo read-only)
+1. Push this repo to your GitHub
+2. Go to [Streamlit Cloud](https://share.streamlit.io)
+3. Create new app → Select your repo
+4. Main file: `app.py`
+5. **Configure Secrets** (Settings → Secrets):
+   ```toml
+   # 参考 .streamlit/secrets.toml.example 文件
+   # 只需要填这一行即可启用 Demo 模式
+   ENABLE_DATA_COLLECTION = "false"
+   ```
 6. Deploy!
+
+**配置说明**：
+- **不要**填写 Deribit API 凭证（保持只读 Demo）
+- `.streamlit/secrets.toml.example` 是参考模板，不需要修改它
+- 在 Streamlit Cloud 网页界面手动填写 Secrets（如上所示）
 
 **Result**: Users can explore features with sample data, but cannot collect new data.
 
