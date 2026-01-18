@@ -15,7 +15,7 @@ A comprehensive Deribit options analytics platform for static analysis of option
 ## 🎯 Two Ways to Use
 
 ### 🌐 Online Demo (Read-Only)
-👉 **[Live Demo](https://your-app.streamlit.app)** - Browse with sample data
+👉 **[Live Demo](https://greeks-joinlearn.streamlit.app)** (部署后可用) - Browse with sample data
 
 - ✅ Explore all analysis features
 - ✅ View example option chains and Greeks
@@ -38,7 +38,7 @@ A comprehensive Deribit options analytics platform for static analysis of option
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/your-username/greeks-analytics.git
+git clone https://github.com/dfkai/greeks_joinlearn.git
 cd greeks-analytics
 
 # 2. Install dependencies

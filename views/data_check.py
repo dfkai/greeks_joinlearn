@@ -41,7 +41,7 @@ def render_data_check_view(db: OptionsDatabase, db_path: str):
             ### 步骤 1️⃣：克隆项目
 
             ```bash
-            git clone https://github.com/your-username/greeks-analytics.git
+            git clone https://github.com/dfkai/greeks_joinlearn.git
             cd greeks-analytics
             ```
 
