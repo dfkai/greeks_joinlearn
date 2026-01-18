@@ -1,0 +1,44 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info
+dist
+build
+
+# Virtual environments
+venv
+env
+ENV
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+.DS_Store
+
+# Project specific
+.env
+credentials.py
+*.duckdb
+*.duckdb.wal
+.monitor_heartbeat
+logs/
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Documentation (not needed in container)
+*.md
+docs/

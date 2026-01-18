@@ -1,0 +1,24 @@
+# Core dependencies for Deribit Options Analytics
+
+# Data processing
+pandas>=2.0.0
+numpy>=1.24.0
+scipy>=1.11.0
+
+# Database
+duckdb>=0.9.0
+
+# Web framework
+streamlit>=1.28.0
+
+# Visualization
+plotly>=5.17.0
+
+# HTTP client
+requests>=2.31.0
+
+# Configuration
+python-dotenv>=1.0.0
+
+# System utilities
+psutil>=5.9.0

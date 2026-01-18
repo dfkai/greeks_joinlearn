@@ -1,0 +1,172 @@
+# ========================================
+# 忽略旧项目文件 - 专注 hypermonitor
+# ========================================
+
+# 旧的监控系统
+/monitor/
+
+# 旧的主项目文件
+/api/
+/app.py
+/views/
+
+# 旧的测试文件（保留 hypermonitor 内部的测试）
+/tests/
+
+# 脚本文件（选择性忽略，保留重要的监控脚本）
+/scripts/analyze_database_size.py
+/scripts/check_data.py
+/scripts/check_db_lock.py
+/scripts/manual_fetch_and_save.py
+/scripts/回补成交量数据.py
+/scripts/检查数据质量.py
+/scripts/示例_调用HTTP获取数据.py
+# 保留: run_monitor.py, check_monitor_status.py, extract_monitor_modules.py, 采集Greeks数据.py
+
+# 文档文件（可选择性查看）
+/docs/
+
+# ========================================
+# 数据库和数据文件
+# ========================================
+
+# SQLite 数据库
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+
+# 数据文件
+*.csv
+*.parquet
+*.h5
+*.hdf5
+*.feather
+
+# ========================================
+# Python 相关
+# ========================================
+
+# 缓存
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# 虚拟环境
+venv/
+env/
+ENV/
+.venv/
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+
+# ========================================
+# Node/前端相关
+# ========================================
+
+# 依赖包
+**/node_modules/
+**/package-lock.json
+**/yarn.lock
+**/pnpm-lock.yaml
+
+# 构建输出
+**/dist/
+**/build/
+**/.next/
+**/.nuxt/
+**/.vite/
+**/.turbo/
+
+# ========================================
+# 日志和临时文件
+# ========================================
+
+# 日志文件
+*.log
+logs/
+*.log.*
+
+# 临时文件
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# 心跳文件
+.monitor_heartbeat
+
+# ========================================
+# IDE 和编辑器
+# ========================================
+
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# ========================================
+# Git 相关
+# ========================================
+
+.git/
+.gitattributes
+
+# ========================================
+# 其他大文件
+# ========================================
+
+# 环境变量文件（保留 .env.example）
+.env
+.env.local
+.env.*.local
+
+# 备份文件
+*.bak
+*.backup
+*_backup/
+*_old/
+
+# 压缩文件
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# ========================================
+# 调试和开发相关
+# ========================================
+
+# 调试输出
+*.debug
+*.trace
+console.log
+
+# 开发工具生成的文件
+*.map
+*.min.js
+*.min.css
+
+# 测试覆盖率
+coverage/
+.nyc_output/
+
+# 性能分析
+*.prof
+*.perf
