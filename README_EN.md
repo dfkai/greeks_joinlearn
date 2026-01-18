@@ -279,10 +279,15 @@ The application will open in your browser at http://localhost:8501
 
 ### Data Collection
 
+> **💡 Recommended Workflow**: Clear the database first, then collect data once to capture a complete snapshot of a specific moment for analysis. This ensures all options data represents the same time state for more accurate analysis.
+>
+> **🔬 Advanced Usage**: Without clearing the database, the same instrument will retain Greeks values from multiple time points, enabling time-series comparison analysis. One tool, multiple use cases - discover your own workflow!
+
 In the Streamlit interface:
 1. Select "Data Overview" from the sidebar
-2. Click "Collect Data" button
-3. Choose collection mode:
+2. **Recommended: Click "Clear Database" first** (Sidebar → Data Management)
+3. Click "Collect Data" button
+4. Choose collection mode:
    - **Quick Mode**: Summary data only (1-2 minutes)
    - **Full Mode**: Summary + Greeks data (5-10 minutes)
 
@@ -356,10 +361,12 @@ python tests/test_cross_section.py
 
 ## 💡 Tips
 
+- **Recommended Workflow**: Clear database → Collect data → Analyze snapshot → Clear → Collect again (get new snapshot)
+- This ensures each analysis uses a complete market state from the same moment
 - Use **Quick Mode** for initial data exploration
 - **Full Mode** includes Greeks calculation for all contracts
 - The database is persistent - data remains after closing the application
-- Refresh data periodically to get the latest market conditions
+- Without clearing, you can retain data from multiple time points for time-series comparison (advanced usage)
 - Use portfolio builder to simulate complex multi-leg strategies
 
 ---
