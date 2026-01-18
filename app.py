@@ -52,10 +52,12 @@ def main():
             <div class="brand-icon">📊</div>
             <div class="header-text-group">
                 <div class="main-header">
-                    Deribit Analytics <span class="beta-tag">PRO</span>
+                    期权希腊值的多维学习（以 Deribit ETH 期权为例）
                 </div>
                 <div class="sub-header">
-                    <span>专业级加密货币衍生品分析终端</span>
+                    <a href="https://joinlearn.com" target="_blank" class="author-link" title="Visit joinlearn.com" style="text-decoration: none; color: inherit;">
+                        <span class="author-tag">就学｜joinlearn.com 出品</span>
+                    </a>
                     <span style="margin: 0 10px; opacity: 0.5;">|</span>
                     <a href="https://github.com/dfkai" target="_blank" class="author-link" title="Visit dfkai's GitHub">
                         <span class="author-tag">by dfkai@github</span>

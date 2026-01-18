@@ -1,101 +1,100 @@
-# Deribit Options Analytics
 # Deribit 期权分析系统
+
+**中文** | [English](README_EN.md)
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.28%2B-red)
 ![DuckDB](https://img.shields.io/badge/DuckDB-0.9%2B-yellow)
 ![Local-First](https://img.shields.io/badge/Local--First-Tool-green)
 
-A comprehensive Deribit options analytics platform for static analysis of option chains with Black-Scholes pricing and Greeks calculation.
-
 基于 Deribit 交易所的期权链静态分析系统，提供完整的 Black-Scholes 定价和 Greeks 风险计算。
 
 ---
 
-## 🎯 Two Ways to Use
+## 🎯 两种使用方式
 
-### 🌐 Online Demo (Read-Only)
-👉 **[Live Demo](https://greeks-joinlearn.streamlit.app)** (部署后可用) - Browse with sample data
+### 🌐 在线演示版（只读模式）
+👉 **[在线演示](https://greeks-joinlearn.streamlit.app)** - 浏览示例数据
 
-- ✅ Explore all analysis features
-- ✅ View example option chains and Greeks
-- ⚠️ Data collection disabled (demo mode)
-- 💡 For real-time data, use local version
+- ✅ 体验所有分析功能
+- ✅ 查看期权链和希腊值示例
+- ⚠️ 数据采集功能已禁用（演示模式）
+- 💡 如需实时数据，请使用本地版本
 
-### 💻 Local Version (Full Features)
-**Recommended for actual trading analysis**
+### 💻 本地版本（完整功能）
+**推荐用于实际交易分析**
 
-- ✅ Real-time data collection from Deribit
-- ✅ Use your own API credentials
-- ✅ Historical data accumulation
-- ✅ Complete privacy (data stays on your machine)
+- ✅ 从 Deribit 实时采集数据
+- ✅ 使用你自己的 API 凭证
+- ✅ 历史数据积累
+- ✅ 完全私密（数据保存在本地）
 
-**This is a local-first tool** - designed to run on your computer with your own API access.
+**这是一个本地优先工具** - 设计为在你的电脑上运行，使用你自己的 API 访问权限。
 
 ---
 
-## 🚀 Quick Start (Local)
+## 🚀 快速开始（本地部署）
 
 ```bash
-# 1. Clone repository
+# 1. 克隆仓库
 git clone https://github.com/dfkai/greeks_joinlearn.git
 cd greeks-analytics
 
-# 2. Install dependencies
+# 2. 安装依赖
 pip install -r requirements.txt
 
-# 3. Configure API credentials (ONLY ONE FILE to edit!)
+# 3. 配置 API 凭证（只需编辑一个文件！）
 cp .env.example .env
-nano .env  # or use any text editor
+nano .env  # 或使用任何文本编辑器
 
-# Fill in these two lines in .env:
-#   DERIBIT_CLIENT_ID_TEST=your_actual_client_id
-#   DERIBIT_CLIENT_SECRET_TEST=your_actual_client_secret
+# 在 .env 文件中填入以下两行：
+#   DERIBIT_CLIENT_ID_TEST=你的实际_client_id
+#   DERIBIT_CLIENT_SECRET_TEST=你的实际_client_secret
 
-# 4. Launch Streamlit dashboard
+# 4. 启动 Streamlit 仪表板
 streamlit run app.py
-# Visit: http://localhost:8501
+# 访问：http://localhost:8501
 ```
 
-**That's it!** All configuration is in the `.env` file. No need to configure anything else.
+**就这么简单！** 所有配置都在 `.env` 文件中。无需配置其他任何内容。
 
 ---
 
-## 🔑 API Credentials Setup
+## 🔑 API 凭证配置
 
-### Step 1: Get Deribit API Keys
+### 步骤 1：获取 Deribit API 密钥
 
-1. Visit [Deribit Test Environment](https://test.deribit.com/) (recommended) or [Production](https://www.deribit.com/)
-2. Login → Account → API
-3. Create new API key with **Read** permissions
-4. Copy `Client ID` and `Client Secret`
+1. 访问 [Deribit 测试环境](https://test.deribit.com/)（推荐）或 [生产环境](https://www.deribit.com/)
+2. 登录 → 账户 → API
+3. 创建新的 API 密钥，权限选择 **Read**（只读）
+4. 复制 `Client ID` 和 `Client Secret`
 
-### Step 2: Configure `.env` File (Local Only!)
+### 步骤 2：配置 `.env` 文件（仅本地使用！）
 
 ```bash
-# This is the ONLY file you need to edit
+# 这是你唯一需要编辑的文件
 nano .env
 ```
 
-Fill in your credentials:
+填入你的凭证：
 ```bash
-DERIBIT_CLIENT_ID_TEST=paste_your_client_id_here
-DERIBIT_CLIENT_SECRET_TEST=paste_your_client_secret_here
+DERIBIT_CLIENT_ID_TEST=粘贴你的_client_id
+DERIBIT_CLIENT_SECRET_TEST=粘贴你的_client_secret
 ```
 
-### ✅ Your Credentials Are Safe
+### ✅ 你的凭证是安全的
 
-- `.env` file is automatically ignored by Git
-- Your API keys will **NEVER** be uploaded to GitHub
-- Data stays completely private on your machine
+- `.env` 文件已被 Git 自动忽略
+- 你的 API 密钥**永远不会**上传到 GitHub
+- 数据完全私密地保存在你的机器上
 
-### ❓ What about `.streamlit/secrets.toml.example`?
+### ❓ `.streamlit/secrets.toml.example` 是什么？
 
-**You can ignore this file for local use!**
+**本地使用可以忽略这个文件！**
 
-**Purpose**: It's a reference template for Streamlit Cloud deployment (similar to `.env` but for cloud).
+**用途**：这是 Streamlit Cloud 部署的参考模板（类似于 `.env`，但用于云端）。
 
-- **本地部署**：只需要修改 `.env` 文件（上面已说明）
+- **本地部署**：只需修改 `.env` 文件（如上所述）
 - **Streamlit Cloud 部署**：参考 `secrets.toml.example` 的内容，在 Streamlit Cloud 网页的 Secrets 管理界面手动填写
 
 **简单理解**：
@@ -105,232 +104,232 @@ DERIBIT_CLIENT_SECRET_TEST=paste_your_client_secret_here
 
 ---
 
-## 🚀 Deployment
+## 🚀 部署
 
-### Deploy Demo to Streamlit Cloud (Optional)
+### 部署演示版到 Streamlit Cloud（可选）
 
 [![Deploy](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io)
 
-**For demonstration purposes only** - shows pre-loaded sample data without real-time collection.
+**仅用于演示目的** - 展示预加载的示例数据，不进行实时采集。
 
-1. Push this repo to your GitHub
-2. Go to [Streamlit Cloud](https://share.streamlit.io)
-3. Create new app → Select your repo
-4. Main file: `app.py`
-5. **Configure Secrets** (Settings → Secrets):
+1. 将此仓库推送到你的 GitHub
+2. 访问 [Streamlit Cloud](https://share.streamlit.io)
+3. 创建新应用 → 选择你的仓库
+4. 主文件：`app.py`
+5. **配置 Secrets**（Settings → Secrets）：
    ```toml
    # 参考 .streamlit/secrets.toml.example 文件
    # 只需要填这一行即可启用 Demo 模式
    ENABLE_DATA_COLLECTION = "false"
    ```
-6. Deploy!
+6. 部署！
 
 **配置说明**：
 - **不要**填写 Deribit API 凭证（保持只读 Demo）
 - `.streamlit/secrets.toml.example` 是参考模板，不需要修改它
 - 在 Streamlit Cloud 网页界面手动填写 Secrets（如上所示）
 
-**Result**: Users can explore features with sample data, but cannot collect new data.
+**结果**：用户可以使用示例数据探索功能，但无法采集新数据。
 
-**For production use**: Clone to local and use your own API credentials (see Quick Start above).
+**生产使用**：克隆到本地并使用你自己的 API 凭证（见上面的快速开始）。
 
 ---
 
-### ⚠️ Why Not Deploy for Multi-User Production?
+### ⚠️ 为什么不适合多用户生产部署？
 
-This tool is designed for **single-user local operation** because:
+本工具设计为**单用户本地运行**，因为：
 
-- **API Rate Limits**: Multiple users = API quota exhaustion
-- **Data Privacy**: Trading data should stay on your machine
-- **Cost**: Each user would consume your API credits
-- **Architecture**: DuckDB file-based storage isn't for concurrent users
+- **API 速率限制**：多用户 = API 配额耗尽
+- **数据隐私**：交易数据应该保存在你的机器上
+- **成本**：每个用户都会消耗你的 API 额度
+- **架构**：DuckDB 基于文件的存储不适合并发用户
 
-**Recommended**: Each trader runs their own local instance with their own Deribit API.
+**推荐**：每个交易者运行自己的本地实例，使用自己的 Deribit API。
 
-### Docker Run (Optional)
+### Docker 运行（可选）
 
-For local containerized deployment:
+本地容器化部署：
 
 ```bash
-# Build image
+# 构建镜像
 docker build -t greeks-analytics .
 
-# Run container
+# 运行容器
 docker run -p 8501:8501 --env-file .env greeks-analytics
 
-# Access at http://localhost:8501
+# 访问 http://localhost:8501
 ```
 
 ---
 
-## 📊 Core Features
+## 📊 核心功能
 
-### 1. IV Analysis
-- **Volatility Smile**: IV skew across strikes
-- **Term Structure**: IV evolution over time
-- **Skew Analysis**: Put/Call IV differential
+### 1. IV 分析
+- **波动率微笑**：跨行权价的 IV 倾斜
+- **期限结构**：IV 随时间的演变
+- **偏度分析**：看跌/看涨 IV 差异
 
-### 2. Portfolio Builder
-- **Multi-leg Strategies**: Straddle, Strangle, Iron Condor, Butterfly, etc.
-- **Greeks Aggregation**: Net Delta, Gamma, Theta, Vega, Rho
-- **Risk Scenarios**: Price sweeps, time decay, IV shock simulations
+### 2. 投资组合构建器
+- **多腿策略**：跨式、宽跨式、铁鹰、蝶式等
+- **Greeks 聚合**：净 Delta、Gamma、Theta、Vega、Rho
+- **风险场景**：价格扫描、时间衰减、IV 冲击模拟
 
-### 3. Advanced Greeks
-- **Volga (Convexity)**: Second-order volatility risk ∂²V/∂σ²
-- **Vanna (Correlation)**: Cross-greek ∂Δ/∂σ
-- **Volga-Vega Clustering**: Identify optimal contracts
+### 3. 高级 Greeks
+- **Volga（凸性）**：二阶波动率风险 ∂²V/∂σ²
+- **Vanna（相关性）**：交叉希腊值 ∂Δ/∂σ
+- **Volga-Vega 聚类**：识别最优合约
 
-### 4. Data Quality Tools
-- **Completeness Check**: Volume data validation
-- **Database Inspection**: Snapshot history analysis
-- **Backfill Utilities**: Missing data recovery
+### 4. 数据质量工具
+- **完整性检查**：交易量数据验证
+- **数据库检查**：快照历史分析
+- **回填工具**：缺失数据恢复
 
 ---
 
-## 🏗️ Project Structure
+## 🏗️ 项目结构
 
 ```
 /
-├── app.py                      # Streamlit entry point
-├── config.py                   # UI configuration (colors, labels)
-├── views/                      # 8 analysis views
-│   ├── cross_section.py       # IV smile, Greeks by strike
-│   ├── time_series.py         # Term structure, IV trends
-│   ├── portfolio.py           # Portfolio builder
-│   ├── volga_analysis.py      # Second-order Greeks
+├── app.py                      # Streamlit 入口
+├── config.py                   # UI 配置（颜色、标签）
+├── views/                      # 8 个分析视图
+│   ├── cross_section.py       # IV 微笑、按行权价的 Greeks
+│   ├── time_series.py         # 期限结构、IV 趋势
+│   ├── portfolio.py           # 投资组合构建器
+│   ├── volga_analysis.py      # 二阶 Greeks
 │   └── ...
 ├── src/
-│   ├── core/                  # Core algorithms
-│   │   ├── bs_calculator.py   # Black-Scholes Greeks engine
-│   │   ├── portfolio_analyzer.py  # Portfolio aggregation
-│   │   └── database.py        # OptionsDatabase (DuckDB)
-│   └── collectors/            # Data fetching
+│   ├── core/                  # 核心算法
+│   │   ├── bs_calculator.py   # Black-Scholes Greeks 引擎
+│   │   ├── portfolio_analyzer.py  # 投资组合聚合
+│   │   └── database.py        # OptionsDatabase（DuckDB）
+│   └── collectors/            # 数据获取
 │       ├── data_collector.py
 │       └── data_completeness_checker.py
 ├── api/
-│   └── Deribit_HTTP.py        # REST API client
-├── scripts/                    # Utilities
-│   ├── check_data.py          # Database inspection
-│   ├── collect_greeks_data.py # Greeks data collection
+│   └── Deribit_HTTP.py        # REST API 客户端
+├── scripts/                    # 实用工具
+│   ├── check_data.py          # 数据库检查
+│   ├── collect_greeks_data.py # Greeks 数据采集
 │   └── ...
-└── tests/                      # Test files
+└── tests/                      # 测试文件
 ```
 
 ---
 
-## 🛠️ Installation
+## 🛠️ 安装
 
-### System Requirements
+### 系统要求
 - Python 3.8+
-- DuckDB (auto-installed via pip)
+- DuckDB（通过 pip 自动安装）
 
-### Install Dependencies
+### 安装依赖
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Configuration
+### 配置
 
-1. **Create `.env` file**:
+1. **创建 `.env` 文件**：
    ```bash
    cp .env.example .env
    ```
 
-2. **Add Deribit API credentials**:
+2. **添加 Deribit API 凭证**：
    ```env
-   # Environment: test or prod
+   # 环境：test 或 prod
    DERIBIT_ENV=test
 
-   # Test environment credentials (recommended)
-   DERIBIT_CLIENT_ID_TEST=your_client_id
-   DERIBIT_CLIENT_SECRET_TEST=your_client_secret
+   # 测试环境凭证（推荐）
+   DERIBIT_CLIENT_ID_TEST=你的_client_id
+   DERIBIT_CLIENT_SECRET_TEST=你的_client_secret
 
-   # Optional: Risk-free rate (default: 0.05)
+   # 可选：无风险利率（默认：0.05）
    RISK_FREE_RATE=0.05
    ```
 
-3. **Get API credentials**:
-   - Test net: [test.deribit.com](https://test.deribit.com) → Settings → API
-   - Production: [www.deribit.com](https://www.deribit.com) → Settings → API
-   - Recommended permissions: Read-only
+3. **获取 API 凭证**：
+   - 测试网：[test.deribit.com](https://test.deribit.com) → 设置 → API
+   - 生产环境：[www.deribit.com](https://www.deribit.com) → 设置 → API
+   - 推荐权限：只读
 
 ---
 
-## 📖 Usage
+## 📖 使用
 
-### Launch Application
+### 启动应用
 
 ```bash
 streamlit run app.py
 ```
 
-The application will open in your browser at http://localhost:8501
+应用将在浏览器中打开：http://localhost:8501
 
-### Available Views
+### 可用视图
 
-1. **Data Overview** - Quick summary and data collection
-2. **Cross Section** - IV smile and Greeks by strike
-3. **Time Series** - Term structure and IV evolution
-4. **Portfolio** - Multi-leg strategy builder
-5. **Portfolio Compare** - Position overlay comparison
-6. **Volga Analysis** - Second-order Greeks analysis
-7. **Volga Holding** - Volga position tracking
-8. **Data Check** - Data completeness verification
+1. **数据概览** - 快速摘要和数据采集
+2. **截面分析** - IV 微笑和按行权价的 Greeks
+3. **时序分析** - 期限结构和 IV 演变
+4. **持仓组合** - 多腿策略构建器
+5. **持仓对比** - 头寸叠加对比
+6. **Volga 分析** - 二阶 Greeks 分析
+7. **Volga 持仓** - Volga 头寸跟踪
+8. **数据检查** - 数据完整性验证
 
-### Data Collection
+### 数据采集
 
-In the Streamlit interface:
-1. Select "Data Overview" from the sidebar
-2. Click "Collect Data" button
-3. Choose collection mode:
-   - **Quick Mode**: Summary data only (1-2 minutes)
-   - **Full Mode**: Summary + Greeks data (5-10 minutes)
+在 Streamlit 界面中：
+1. 从侧边栏选择"数据概览"
+2. 点击"采集数据"按钮
+3. 选择采集模式：
+   - **快速模式**：仅摘要数据（1-2 分钟）
+   - **完整模式**：摘要 + Greeks 数据（5-10 分钟）
 
 ---
 
-## 🔧 Common Commands
+## 🔧 常用命令
 
 ```bash
-# Launch Streamlit application
+# 启动 Streamlit 应用
 streamlit run app.py
 
-# Check database snapshots
+# 检查数据库快照
 python scripts/check_data.py
 
-# Collect Greeks data
+# 采集 Greeks 数据
 python scripts/collect_greeks_data.py
 
-# Check data quality
+# 检查数据质量
 python scripts/check_data_quality.py
 
-# Backfill volume data
+# 回填交易量数据
 python scripts/backfill_volume_data.py
 ```
 
 ---
 
-## 📊 Database
+## 📊 数据库
 
-### Storage
-- **Database**: `options_data.duckdb` (DuckDB OLAP database)
-- **Tables**:
-  - `options_chain` - Option contracts with market data
-  - `options_greeks` - Calculated Greeks
-  - `portfolios` - User-defined portfolios
-  - `portfolio_positions` - Portfolio positions
+### 存储
+- **数据库**：`options_data.duckdb`（DuckDB OLAP 数据库）
+- **表**：
+  - `options_chain` - 期权合约及市场数据
+  - `options_greeks` - 计算的 Greeks
+  - `portfolios` - 用户定义的投资组合
+  - `portfolio_positions` - 投资组合头寸
 
-### Access Pattern
-- Read-only access for analysis views
-- Write access during data collection
-- Automatic table creation on first run
+### 访问模式
+- 分析视图只读访问
+- 数据采集时写入访问
+- 首次运行时自动创建表
 
 ---
 
-## 🧪 Testing
+## 🧪 测试
 
 ```bash
-# Run specific test files
+# 运行特定测试文件
 python tests/test_bs_calculator.py
 python tests/test_portfolio_analyzer.py
 python tests/test_cross_section.py
@@ -338,41 +337,41 @@ python tests/test_cross_section.py
 
 ---
 
-## 🔒 Security Notes
+## 🔒 安全注意事项
 
-⚠️ **IMPORTANT**:
-- Never commit files containing API credentials to public repositories
-- Use Read-Only API keys for analysis tasks
-- Test environment credentials are recommended for development
-- `.env` file is git-ignored for security
-
----
-
-## 📚 Documentation
-
-- **CLAUDE.md** - Detailed architecture and development guide
-- **CHANGELOG.md** - Version history and changes
+⚠️ **重要**：
+- 永远不要将包含 API 凭证的文件提交到公共仓库
+- 分析任务使用只读 API 密钥
+- 推荐使用测试环境凭证进行开发
+- `.env` 文件已被 git 忽略以确保安全
 
 ---
 
-## 💡 Tips
+## 📚 文档
 
-- Use **Quick Mode** for initial data exploration
-- **Full Mode** includes Greeks calculation for all contracts
-- The database is persistent - data remains after closing the application
-- Refresh data periodically to get the latest market conditions
-- Use portfolio builder to simulate complex multi-leg strategies
+- **CLAUDE.md** - 详细架构和开发指南
+- **CHANGELOG.md** - 版本历史和变更
 
 ---
 
-## 🎓 Educational Use
+## 💡 提示
 
-This project is designed as a learning tool for:
-- Black-Scholes pricing model implementation
-- Greeks calculation and risk management
-- Option portfolio construction and analysis
-- Volatility surface analysis
+- 使用**快速模式**进行初始数据探索
+- **完整模式**包括所有合约的 Greeks 计算
+- 数据库是持久的 - 关闭应用后数据仍然保留
+- 定期刷新数据以获取最新市场状况
+- 使用投资组合构建器模拟复杂的多腿策略
 
 ---
 
-> **Disclaimer**: This project is for educational and research purposes only. It does not constitute investment advice. Use at your own risk.
+## 🎓 教育用途
+
+本项目设计为学习工具，用于：
+- Black-Scholes 定价模型实现
+- Greeks 计算和风险管理
+- 期权投资组合构建和分析
+- 波动率曲面分析
+
+---
+
+> **免责声明**：本项目仅用于教育和研究目的。不构成投资建议。使用风险自负。
