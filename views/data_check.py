@@ -6,6 +6,7 @@
 import streamlit as st
 import pandas as pd
 import logging
+import os
 from src.core import OptionsDatabase
 from src.collectors import DataCompletenessChecker
 
@@ -15,13 +16,111 @@ logger = logging.getLogger(__name__)
 def render_data_check_view(db: OptionsDatabase, db_path: str):
     """
     数据完整性检查视图页面
-    
+
     :param db: 数据库对象
     :param db_path: 数据库文件路径
     """
     st.header("🔍 数据完整性检查")
+
+    # 检测 Demo 模式
+    DEMO_MODE = os.getenv('ENABLE_DATA_COLLECTION', 'true').lower() != 'true'
+
+    if DEMO_MODE:
+        # Demo 模式：显示完整的本地部署教程
+        st.warning("⚠️ **演示模式限制**：数据完整性检查需要调用 Deribit API，在演示模式下已禁用")
+
+        st.divider()
+
+        # 完整教程
+        st.success("💡 **如何启用完整功能？** 本地部署只需 5 分钟！")
+
+        with st.container():
+            st.markdown("""
+            ## 📦 本地部署步骤
+
+            ### 步骤 1️⃣：克隆项目
+
+            ```bash
+            git clone https://github.com/your-username/greeks-analytics.git
+            cd greeks-analytics
+            ```
+
+            ### 步骤 2️⃣：安装依赖
+
+            ```bash
+            pip install -r requirements.txt
+            ```
+
+            ### 步骤 3️⃣：获取 Deribit API 凭证
+
+            1. 访问 **[Deribit 测试环境](https://test.deribit.com/)** （推荐先用测试环境）
+            2. 注册并登录账户
+            3. 进入 **Account → API**
+            4. 点击 **Create new API key**
+            5. 权限选择：勾选 **Read** （只需读权限）
+            6. 复制生成的 `Client ID` 和 `Client Secret`
+
+            ### 步骤 4️⃣：配置 API 凭证（只需编辑一个文件！）
+
+            ```bash
+            # 复制示例文件
+            cp .env.example .env
+
+            # 编辑 .env 文件
+            nano .env  # 或用任何文本编辑器
+            ```
+
+            在 `.env` 文件中，填入你的凭证（**只需改这两行**）：
+
+            ```bash
+            DERIBIT_CLIENT_ID_TEST=粘贴你的_Client_ID
+            DERIBIT_CLIENT_SECRET_TEST=粘贴你的_Client_Secret
+            ```
+
+            ### 步骤 5️⃣：启动应用
+
+            ```bash
+            streamlit run app.py
+            ```
+
+            访问：http://localhost:8501
+
+            ---
+
+            ## 🎉 完成！现在你可以：
+
+            - ✅ **实时数据采集** - 从 Deribit 抓取最新期权数据
+            - ✅ **数据完整性检查** - 对比 API 和数据库，确保无遗漏
+            - ✅ **历史数据积累** - 数据存储在本地，随时分析
+            - ✅ **完全私有** - 所有数据和凭证仅在你的电脑上
+
+            ---
+
+            ## 🔒 安全提示
+
+            - ✅ `.env` 文件已被 Git 忽略，**不会上传到 GitHub**
+            - ✅ 你的 API 凭证仅存储在本地
+            - ✅ 数据完全私有，不会发送到任何第三方服务器
+
+            ---
+
+            ## ❓ 常见问题
+
+            **Q: 需要付费吗？**
+            A: 不需要！Deribit 测试环境完全免费，数据和真实环境一致。
+
+            **Q: 需要配置多个文件吗？**
+            A: 不需要！只需要编辑 `.env` 文件，填入两行凭证即可。
+
+            **Q: 数据会丢失吗？**
+            A: 不会。数据存储在本地 DuckDB 数据库，关闭应用后仍然保留。
+            """)
+
+        return  # Demo 模式下直接返回，不执行后续检查逻辑
+
+    # 完整功能模式：显示正常的检查界面
     st.caption("检查数据库中是否完整下载了Deribit上所有ETH期权数据")
-    
+
     # 检查按钮
     col1, col2 = st.columns([1, 4])
     with col1:

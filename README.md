@@ -4,6 +4,7 @@
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.28%2B-red)
 ![DuckDB](https://img.shields.io/badge/DuckDB-0.9%2B-yellow)
+![Local-First](https://img.shields.io/badge/Local--First-Tool-green)
 
 A comprehensive Deribit options analytics platform for static analysis of option chains with Black-Scholes pricing and Greeks calculation.
 
@@ -11,52 +12,127 @@ A comprehensive Deribit options analytics platform for static analysis of option
 
 ---
 
-## 🚀 Quick Start
+## 🎯 Two Ways to Use
+
+### 🌐 Online Demo (Read-Only)
+👉 **[Live Demo](https://your-app.streamlit.app)** - Browse with sample data
+
+- ✅ Explore all analysis features
+- ✅ View example option chains and Greeks
+- ⚠️ Data collection disabled (demo mode)
+- 💡 For real-time data, use local version
+
+### 💻 Local Version (Full Features)
+**Recommended for actual trading analysis**
+
+- ✅ Real-time data collection from Deribit
+- ✅ Use your own API credentials
+- ✅ Historical data accumulation
+- ✅ Complete privacy (data stays on your machine)
+
+**This is a local-first tool** - designed to run on your computer with your own API access.
+
+---
+
+## 🚀 Quick Start (Local)
 
 ```bash
-# 1. Install dependencies
+# 1. Clone repository
+git clone https://github.com/your-username/greeks-analytics.git
+cd greeks-analytics
+
+# 2. Install dependencies
 pip install -r requirements.txt
 
-# 2. Configure API credentials
+# 3. Configure API credentials (ONLY ONE FILE to edit!)
 cp .env.example .env
-# Edit .env and add your Deribit API credentials
+nano .env  # or use any text editor
 
-# 3. Launch Streamlit dashboard
+# Fill in these two lines in .env:
+#   DERIBIT_CLIENT_ID_TEST=your_actual_client_id
+#   DERIBIT_CLIENT_SECRET_TEST=your_actual_client_secret
+
+# 4. Launch Streamlit dashboard
 streamlit run app.py
 # Visit: http://localhost:8501
 ```
+
+**That's it!** All configuration is in the `.env` file. No need to configure anything else.
+
+---
+
+## 🔑 API Credentials Setup
+
+### Step 1: Get Deribit API Keys
+
+1. Visit [Deribit Test Environment](https://test.deribit.com/) (recommended) or [Production](https://www.deribit.com/)
+2. Login → Account → API
+3. Create new API key with **Read** permissions
+4. Copy `Client ID` and `Client Secret`
+
+### Step 2: Configure `.env` File (Local Only!)
+
+```bash
+# This is the ONLY file you need to edit
+nano .env
+```
+
+Fill in your credentials:
+```bash
+DERIBIT_CLIENT_ID_TEST=paste_your_client_id_here
+DERIBIT_CLIENT_SECRET_TEST=paste_your_client_secret_here
+```
+
+### ✅ Your Credentials Are Safe
+
+- `.env` file is automatically ignored by Git
+- Your API keys will **NEVER** be uploaded to GitHub
+- Data stays completely private on your machine
+
+### ❓ What about `.streamlit/secrets.toml.example`?
+
+**You can ignore this file!** It's only a reference for Streamlit Cloud deployment.
+
+- **For local use**: Only edit `.env` file (explained above)
+- **For Streamlit Cloud**: Admins use this as a template for cloud secrets
 
 ---
 
 ## 🚀 Deployment
 
-### Deploy to Streamlit Cloud (Recommended - 5 minutes)
+### Deploy Demo to Streamlit Cloud (Optional)
 
 [![Deploy](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io)
 
-1. Push this repo to your GitHub
-2. Go to [Streamlit Cloud](https://share.streamlit.io)
-3. Create new app → Select this repo
-4. Add Deribit API credentials in Secrets (see [API Setup Guide](docs/API_SETUP.md))
-5. Deploy!
+**For demonstration purposes only** - shows pre-loaded sample data without real-time collection.
 
-**Live in minutes at:** `https://[username]-greeks-analytics.streamlit.app`
+1. Fork this repo to your GitHub
+2. Upload the `options_data.duckdb` file (sample data snapshot)
+3. Go to [Streamlit Cloud](https://share.streamlit.io)
+4. Create new app → Select your forked repo
+5. **Do NOT add API credentials** (keeps demo read-only)
+6. Deploy!
 
-📘 **Full deployment guide**: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
-🔑 **API credentials setup**: [docs/API_SETUP.md](docs/API_SETUP.md)
+**Result**: Users can explore features with sample data, but cannot collect new data.
 
-### Other Deployment Options
+**For production use**: Clone to local and use your own API credentials (see Quick Start above).
 
-| Platform | Setup Time | Cost | Best For |
-|----------|-----------|------|----------|
-| **Streamlit Cloud** | 5 min | Free | Quick demos, education |
-| **Hugging Face Spaces** | 10 min | Free | Research, collaboration |
-| **Railway** | 15 min | $5/mo credit | Professional deployments |
-| **Docker** | 30 min | Varies | Self-hosting, enterprise |
+---
 
-See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for detailed instructions.
+### ⚠️ Why Not Deploy for Multi-User Production?
 
-### Quick Docker Run
+This tool is designed for **single-user local operation** because:
+
+- **API Rate Limits**: Multiple users = API quota exhaustion
+- **Data Privacy**: Trading data should stay on your machine
+- **Cost**: Each user would consume your API credits
+- **Architecture**: DuckDB file-based storage isn't for concurrent users
+
+**Recommended**: Each trader runs their own local instance with their own Deribit API.
+
+### Docker Run (Optional)
+
+For local containerized deployment:
 
 ```bash
 # Build image
@@ -67,15 +143,6 @@ docker run -p 8501:8501 --env-file .env greeks-analytics
 
 # Access at http://localhost:8501
 ```
-
-### ❌ Why Vercel Won't Work
-
-Vercel cannot deploy Streamlit applications because:
-- Streamlit requires **persistent Python processes** (Vercel is serverless)
-- Streamlit needs **WebSocket support** (limited on Vercel)
-- Python on Vercel is for **short-lived functions only** (max 10s)
-
-Use platforms designed for persistent web apps instead (see options above).
 
 ---
 

@@ -37,6 +37,9 @@ wheels/
 *.sqlite
 *.sqlite3
 
+# 例外：允许提交示例数据快照（用于线上 Demo）
+!options_data.duckdb
+
 # 日志文件
 *.log
 
