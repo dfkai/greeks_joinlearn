@@ -38,7 +38,7 @@
 ```bash
 # 1. 克隆仓库
 git clone https://github.com/dfkai/greeks_joinlearn.git
-cd greeks-analytics
+cd greeks_joinlearn
 
 # 2. 安装依赖
 pip install -r requirements.txt

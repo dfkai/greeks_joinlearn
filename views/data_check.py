@@ -42,7 +42,7 @@ def render_data_check_view(db: OptionsDatabase, db_path: str):
 
             ```bash
             git clone https://github.com/dfkai/greeks_joinlearn.git
-            cd greeks-analytics
+            cd greeks_joinlearn
             ```
 
             ### 步骤 2️⃣：安装依赖

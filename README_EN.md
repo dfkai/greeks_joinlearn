@@ -38,7 +38,7 @@ A comprehensive Deribit options analytics platform for static analysis of option
 ```bash
 # 1. Clone repository
 git clone https://github.com/dfkai/greeks_joinlearn.git
-cd greeks-analytics
+cd greeks_joinlearn
 
 # 2. Install dependencies
 pip install -r requirements.txt
