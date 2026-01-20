@@ -22,3 +22,6 @@ python-dotenv>=1.0.0
 
 # System utilities
 psutil>=5.9.0
+
+# Analytics
+posthog>=3.0.0

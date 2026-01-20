@@ -12,7 +12,7 @@ from src.collectors import DataCollector
 from src.core import OptionsDatabase
 
 # 导入工具模块
-from src.utils import load_database, apply_custom_css
+from src.utils import load_database, apply_custom_css, init_posthog, track_page_view, track_data_collection
 
 # 导入视图模块
 from views.dashboard import render_dashboard_view
@@ -42,6 +42,9 @@ apply_custom_css()
 
 def main():
     """主应用函数 - 路由控制器"""
+
+    # 初始化 PostHog 分析（仅在启用时生效）
+    init_posthog()
 
     # 检测是否为 Demo 模式
     DEMO_MODE = os.getenv('ENABLE_DATA_COLLECTION', 'true').lower() != 'true'
@@ -182,19 +185,31 @@ def main():
                     greeks_limit = None
         
             if st.button("🚀 开始采集数据", type="primary", width='stretch'):
+                import time
+                start_time = time.time()
+
                 try:
                     progress_bar = st.progress(0)
                     status_text = st.empty()
-                
+
                     collector = DataCollector(currency="ETH", db_path=db_path, max_workers=10)
                 
                     if collect_mode == "快速采集（仅摘要）":
                         status_text.text("正在采集期权链摘要数据...")
                         progress_bar.progress(30)
-                    
+
                         # 使用clear_all=True完全清空旧数据，确保每次都是最新快照
                         count = collector.collect_summary_data(clear_all=True)
-                    
+                        duration = time.time() - start_time
+
+                        # 跟踪数据采集成功
+                        track_data_collection(
+                            mode="quick",
+                            success=True,
+                            duration_seconds=duration,
+                            record_count=count
+                        )
+
                         if count > 0:
                             progress_bar.progress(100)
                             status_text.empty()
@@ -208,22 +223,31 @@ def main():
                         # 完整采集模式
                         status_text.text("步骤 1/2: 正在采集期权链摘要数据...")
                         progress_bar.progress(20)
-                    
+
                         # 使用clear_all=True完全清空旧数据，确保每次都是最新快照
                         summary_count = collector.collect_summary_data(clear_all=True)
-                    
+
                         if summary_count == 0:
                             st.warning("⚠️ 摘要数据采集失败或未获取到新数据，将继续采集Greeks数据...")
-                    
+
                         status_text.text(f"步骤 2/2: 正在采集Greeks数据{'（全部）' if greeks_limit is None else f'（限制{greeks_limit}条）'}...")
                         progress_bar.progress(50)
-                    
+
                         # 第二次调用时不再清空（因为已经在第一次清空了）
                         greeks_count = collector.collect_greeks_data(limit=greeks_limit, clear_all=False)
-                    
+                        duration = time.time() - start_time
+
+                        # 跟踪完整采集成功
+                        track_data_collection(
+                            mode="full",
+                            success=True,
+                            duration_seconds=duration,
+                            record_count=summary_count + greeks_count
+                        )
+
                         progress_bar.progress(100)
                         status_text.empty()
-                    
+
                         # 显示详细结果
                         result_msg = f"✅ 采集完成！\n"
                         result_msg += f"- 摘要数据: {summary_count} 条\n"
@@ -231,7 +255,7 @@ def main():
                             result_msg += f"- Greeks数据: {greeks_count} 条（全部采集）"
                         else:
                             result_msg += f"- Greeks数据: {greeks_count} 条（限制{greeks_limit}条）"
-                    
+
                         st.success(result_msg)
                     
                         # 显示统计信息
@@ -250,15 +274,25 @@ def main():
                     st.rerun()
                     
                 except Exception as e:
+                    duration = time.time() - start_time
                     error_msg = str(e)
+
+                    # 跟踪数据采集失败
+                    track_data_collection(
+                        mode="quick" if collect_mode == "快速采集（仅摘要）" else "full",
+                        success=False,
+                        duration_seconds=duration,
+                        error_message=error_msg
+                    )
+
                     st.error(f"❌ 数据采集失败: {error_msg}")
-                
+
                     # 提供更详细的错误信息
                     if "proxy" in error_msg.lower() or "连接" in error_msg:
                         st.info("💡 提示：可能是网络代理问题，请检查网络连接或代理设置")
                     elif "timeout" in error_msg.lower():
                         st.info("💡 提示：请求超时，请稍后重试或减少采集数量")
-                
+
                     logger.error(f"数据采集失败: {e}", exc_info=True)
         
             st.divider()
@@ -277,25 +311,33 @@ def main():
     # 主内容区 - 路由分发
     if db_path:
         db = load_database(db_path)
-        
+
         if db:
             # 根据选择的页面调用对应的视图函数
             if page == "截面分析视图":
+                track_page_view("cross_section")
                 render_cross_section_view(db)
             elif page == "时序分析视图":
+                track_page_view("time_series")
                 render_time_series_view(db)
             elif page == "持仓组合Greeks":
+                track_page_view("portfolio")
                 render_portfolio_view(db)
             elif page == "持仓叠加对比":
+                track_page_view("portfolio_compare")
                 render_portfolio_compare_view(db)
             elif page == "Volga分析":
+                track_page_view("volga_analysis")
                 render_volga_analysis_view(db)
             elif page == "Volga持仓跟踪":
+                track_page_view("volga_holding")
                 render_volga_holding_view(db)
             elif page == "数据完整性检查":
+                track_page_view("data_check")
                 render_data_check_view(db, db_path)
             else:
                 # 默认显示数据概览页面
+                track_page_view("dashboard", currency=currency)
                 render_dashboard_view(db, currency)
         else:
             st.error("无法连接数据库，请检查数据库文件路径")

@@ -8,6 +8,17 @@
 
 from .app_utils import load_database, load_data, apply_custom_css, apply_filters, get_statistics
 from .ui_components import render_tag_selector
+from .analytics import (
+    init_posthog,
+    track_event,
+    track_page_view,
+    track_data_collection,
+    track_portfolio_action,
+    track_error,
+    identify_user,
+    shutdown_posthog,
+    track_function_call
+)
 from .data_preparers import (
     prepare_cross_section_data,
     prepare_cross_section_data_multi_greeks,
@@ -34,6 +45,9 @@ __all__ = [
     'prepare_general_cross_section_data', 'prepare_breakeven_data', 'prepare_delta_skew_data',
     'plot_cross_section_chart', 'plot_time_series_chart',
     'plot_all_greeks_cross_section', 'plot_all_greeks_time_series',
-    'plot_breakeven_scatter', 'plot_delta_skew_chart'
+    'plot_breakeven_scatter', 'plot_delta_skew_chart',
+    'init_posthog', 'track_event', 'track_page_view', 'track_data_collection',
+    'track_portfolio_action', 'track_error', 'identify_user', 'shutdown_posthog',
+    'track_function_call'
 ]
 
